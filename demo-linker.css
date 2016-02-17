@@ -1,0 +1,18 @@
+[data-demo-linker-item] {
+    cursor: pointer;
+    outline: 1px solid black;
+}
+[data-demo-linker-item]:before {
+    content: attr(data-demo-linker-item);
+    position: absolute;
+    background-color: black;
+    color: white;
+    z-index: 1000;
+}
+[data-demo-linker-item]:hover {
+    outline-color: mediumvioletred;
+    outline-width: 2px;
+}
+[data-demo-linker-item]:hover:before {
+    background-color: mediumvioletred;
+}
