@@ -1,0 +1,22 @@
+{
+  "name": "demo-linker",
+  "version": "0.0.1",
+  "description": "Annotate UI components and link them to wherever you want.",
+  "scripts": {
+    "start": "http-server './' -c-1 -o -p 33665",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbmoelker/demo-linker.git"
+  },
+  "author": "Jasper Moelker <jasper@voorhoede.nl> (https://voorhoede.nl/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jbmoelker/demo-linker/issues"
+  },
+  "homepage": "https://github.com/jbmoelker/demo-linker#readme",
+  "devDependencies": {
+    "http-server": "0.8.5"
+  }
+}
