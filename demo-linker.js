@@ -3,11 +3,14 @@
 
     var defaults = {
         baseUrl: '',
+        debugHash: 'debug',
         itemAttr: 'data-demo-linker-item'
     };
     var URL_ATTR = 'data-demo-linker-url';
 
-    window.demoLinker = demoLinker;
+    window.demoLinker = function(mapping, options) {
+        return new DemoLinker(mapping, options);
+    };
 
     /**
      *
@@ -16,8 +19,27 @@
      * @param {String} [options.baseUrl]
      * @param {String} [options.itemAttr]
      */
-    function demoLinker(mapping, options) {
-        var config = mergeObjects(defaults, options);
+    function DemoLinker(mapping, options) {
+        var linker = this;
+        this.mapping = mapping;
+        this.config = mergeObjects(defaults, options);
+        this.enabled = false;
+
+        enableIfHashMatch();
+        window.addEventListener('hashchange', enableIfHashMatch, false);
+
+        function enableIfHashMatch() {
+            if(hashMatches(linker.config.debugHash)) {
+                linker.enable();
+            }
+        }
+    }
+
+    DemoLinker.prototype.enable = function() {
+        if(this.enabled) { return; }
+
+        var mapping = this.mapping;
+        var config = this.config;
 
         Object.keys(mapping).forEach(function(selector) {
             var label = mapping[selector].name;
@@ -31,6 +53,12 @@
         });
 
         document.body.addEventListener('click', navigateOnClick('['+config.itemAttr+']'), false);
+
+        this.enabled = true;
+    };
+
+    function hashMatches(hash) {
+        return (window.location.hash === '#' + hash);
     }
 
     function navigateOnClick(selector) {
