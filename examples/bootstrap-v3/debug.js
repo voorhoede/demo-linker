@@ -1,4 +1,4 @@
-(function(viewLinker){
+(function(demoLinker){
     'use strict';
 
     var mapping = {
@@ -23,6 +23,6 @@
         'baseUrl': 'https://getbootstrap.com/'
     };
 
-    viewLinker(mapping, options);
+    demoLinker(mapping, options);
 
-}(window.viewLinker));
+}(window.demoLinker));

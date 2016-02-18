@@ -7,14 +7,16 @@
     };
     var URL_ATTR = 'data-demo-linker-url';
 
-    window.viewLinker = viewLinker;
+    window.demoLinker = demoLinker;
 
     /**
      *
-     * @param {Object} mapping
+     * @param {Object} mapping      with CSS selectors as keys and a value of { name: '', url: '' }.
      * @param {Object} [options]
+     * @param {String} [options.baseUrl]
+     * @param {String} [options.itemAttr]
      */
-    function viewLinker(mapping, options) {
+    function demoLinker(mapping, options) {
         var config = mergeObjects(defaults, options);
 
         Object.keys(mapping).forEach(function(selector) {
