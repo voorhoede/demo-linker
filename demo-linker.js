@@ -1,6 +1,19 @@
 (function(){
     'use strict';
 
+    /**
+     * Create a Demo linker to annotate UI components and link them to wherever you want.
+     *
+     * @param {Object} mapping                      with CSS selectors as keys and a value of { name: '', url: '' }.
+     * @param {Object} [options]
+     * @param {String} [options.baseUrl]            Used as prefix for all URLs in mapping, to navigate on click.
+     * @param {String} [options.itemAttr]           Attribute added to elements matching selectors in mapping, with `name` as value.
+     * @param {String} [options.toggleSelector]     CSS selector used to bind elements which toggle linker on click.
+     */
+    window.demoLinker = function(mapping, options) {
+        return new DemoLinker(mapping, options);
+    };
+
     var defaults = {
         baseUrl: '',
         debugHash: 'debug',
@@ -9,63 +22,57 @@
     };
     var URL_ATTR = 'data-demo-linker-url';
 
-    window.demoLinker = function(mapping, options) {
-        return new DemoLinker(mapping, options);
-    };
-
-    /**
-     *
-     * @param {Object} mapping      with CSS selectors as keys and a value of { name: '', url: '' }.
-     * @param {Object} [options]
-     * @param {String} [options.baseUrl]
-     * @param {String} [options.itemAttr]
-     */
     function DemoLinker(mapping, options) {
         var linker = this;
-        this.mapping = mapping;
-        this.config = mergeObjects(defaults, options);
-        this.enabled = false;
+        var config = mergeObjects(defaults, options);
 
+        this.mapping = mapping;
+        this.config = config;
+        this.enabled = false;
+        this.onNavigate = navigateOnClick('[' + config.itemAttr + ']');
+
+        // enable debug when hash is 'debugHash':
         enableIfHashMatch();
         window.addEventListener('hashchange', enableIfHashMatch, false);
-
         function enableIfHashMatch() {
-            if(hashMatches(linker.config.debugHash)) {
+            if(hashMatches(config.debugHash)) {
                 linker.enable();
             }
         }
 
-        [].forEach.call(document.querySelectorAll(linker.config.toggleSelector), function(handle){
-            handle.addEventListener('click', function(){ linker.enable(); }, false);
+        // bind all toggle handles to linker
+        [].forEach.call(document.querySelectorAll(config.toggleSelector), function(handle){
+            handle.addEventListener('click', function(){ linker.toggle(); }, false);
         });
     }
 
     DemoLinker.prototype.enable = function() {
-        if(this.enabled) { return; }
+        var linker = this;
+        if(linker.enabled) { return; }
 
-        var mapping = this.mapping;
-        var config = this.config;
-
-        Object.keys(mapping).forEach(function(selector) {
-            var label = mapping[selector].name;
-            var url = mapping[selector].url;
-            var elements = [].slice.call(document.querySelectorAll(selector));
-
-            elements.forEach(function(element){
-                element.setAttribute(config.itemAttr, label);
-                element.setAttribute(URL_ATTR, config.baseUrl + url);
+        Object.keys(linker.mapping).forEach(function(selector) {
+            var item = linker.mapping[selector];
+            [].forEach.call(document.querySelectorAll(selector), function(element){
+                element.setAttribute(linker.config.itemAttr, item.name);
+                element.setAttribute(URL_ATTR, linker.config.baseUrl + item.url);
             });
         });
-
-        document.body.addEventListener('click', navigateOnClick('['+config.itemAttr+']'), false);
+        document.body.addEventListener('click', linker.onNavigate, false);
 
         this.enabled = true;
     };
 
     DemoLinker.prototype.disable = function() {
-        if(!this.enabled) { return; }
+        var linker = this;
+        if(!linker.enabled) { return; }
 
-        // disable
+        Object.keys(linker.mapping).forEach(function(selector) {
+            [].forEach.call(document.querySelectorAll(selector), function(element){
+                element.removeAttribute(linker.config.itemAttr);
+                element.removeAttribute(URL_ATTR);
+            });
+        });
+        document.body.removeEventListener('click', linker.onNavigate, false);
 
         this.enabled = false;
     };
@@ -107,7 +114,7 @@
     function mergeObjects(/* source1, source2, ..., sourceN */) {
         var sources = [].slice.call(arguments);
         return sources.reduce(function(result, source){
-            return Object.keys(source).reduce(function(result, prop){
+            return Object.keys(source || {}).reduce(function(result, prop){
                 result[prop] = source[prop];
                 return result;
             }, result);

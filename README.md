@@ -8,7 +8,7 @@ related documentation, section in a living style guide, etc.
 
 ## Usage
 
-Include `demo-linker.css` and `demo-linker.js`:
+Include `demo-linker.css` and `demo-linker.js` at the end of your page:
 
 ```html
 <link  href="path/to/demo-linker.css" rel="stylesheet">

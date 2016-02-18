@@ -6,18 +6,32 @@
     <title>Demo linker</title>
 </head>
 <body>
-<h1>Demo linker</h1>
 
-<p>Annotate UI components and link them to wherever you want.</p>
+<header>
+    <h1>Demo linker</h1>
+    <p class="tagline">Annotate UI components and link them to wherever you want.</p>
+</header>
 
-<h2>Examples</h2>
-<ul>
-    <li><a href="examples/bootstrap-v3/">Bootstrap v3</a></li>
-</ul>
+<button data-demo-linker-toggle>Try it</button>
+
+<section>
+    <h2>Examples</h2>
+    <ul data-examples>
+        <li><a href="examples/bootstrap-v3/">Bootstrap v3</a></li>
+        <li><a href="examples/bootstrap-v3/#debug">Bootstrap v3, annotated on start</a></li>
+    </ul>
+</section>
 
 <!-- demo-linker (include in debug mode only) -->
 <link rel="stylesheet" href="demo-linker.css">
 <script src="demo-linker.js"></script>
+<script>
+    demoLinker({
+        'h1': { name: 'Title', url: 'https://github.com/jbmoelker/demo-linker' },
+        '.tagline': { name: 'Tagline', url: 'https://github.com/jbmoelker/demo-linker/issues' },
+        '[data-examples]': { name: 'Examples', url: 'https://twitter.com/jbmoelker' }
+    });
+</script>
 <!-- /demo-linker -->
 </body>
 </html>
