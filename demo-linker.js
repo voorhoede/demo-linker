@@ -4,7 +4,8 @@
     var defaults = {
         baseUrl: '',
         debugHash: 'debug',
-        itemAttr: 'data-demo-linker-item'
+        itemAttr: 'data-demo-linker-item',
+        toggleSelector: '[data-demo-linker-toggle]'
     };
     var URL_ATTR = 'data-demo-linker-url';
 
@@ -33,6 +34,10 @@
                 linker.enable();
             }
         }
+
+        [].forEach.call(document.querySelectorAll(linker.config.toggleSelector), function(handle){
+            handle.addEventListener('click', function(){ linker.enable(); }, false);
+        });
     }
 
     DemoLinker.prototype.enable = function() {
@@ -57,6 +62,18 @@
         this.enabled = true;
     };
 
+    DemoLinker.prototype.disable = function() {
+        if(!this.enabled) { return; }
+
+        // disable
+
+        this.enabled = false;
+    };
+
+    DemoLinker.prototype.toggle = function() {
+        return this.enabled ? this.disable() : this.enable();
+    };
+
     function hashMatches(hash) {
         return (window.location.hash === '#' + hash);
     }
@@ -73,14 +90,17 @@
     }
 
     function closest (element, selector) {
+        if(!element) { return false; }
         return matches(element, selector) ? element : closest(element.parentNode, selector);
     }
 
-    // borrowed from https://developer.mozilla.org/en/docs/Web/API/Element/matches#Polyfill
+    // based on https://developer.mozilla.org/en/docs/Web/API/Element/matches#Polyfill
     function matches(element, selector) {
-        var matches = (element.document || element.ownerDocument).querySelectorAll(selector),
-            i = matches.length;
-        while (--i >= 0 && matches.item(i) !== element);
+        var context = (element.document || element.ownerDocument);
+        if(!context || !context.querySelectorAll) { return false; }
+        var matchingElements = context.querySelectorAll(selector),
+            i = matchingElements.length;
+        while (--i >= 0 && matchingElements.item(i) !== element);
         return i > -1;
     }
 
