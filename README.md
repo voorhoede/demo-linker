@@ -34,6 +34,14 @@ window.demoLinker(
 </script>
 ```
 
+Or the URL of the mapping:
+
+```html
+<script>
+window.demoLinker('path/to/mapping.json');
+</script>
+```
+
 Additionally you can pass `options`, like a `baseUrl`.
 
 ```html
@@ -50,8 +58,16 @@ window.demoLinker(
         }
     },
     /* options */ {
-        'baseUrl': 'https://getbootstrap.com/'
+        baseUrl: 'https://getbootstrap.com/'
     }
 );
+</script>
+```
+
+Or
+
+```html
+<script>
+window.demoLinker('path/to/mapping.json', { baseUrl: 'https://getbootstrap.com/' });
 </script>
 ```

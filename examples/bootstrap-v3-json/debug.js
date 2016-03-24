@@ -1,0 +1,1 @@
+window.demoLinker('mapping.json', { 'baseUrl': 'https://getbootstrap.com/' });

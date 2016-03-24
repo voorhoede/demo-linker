@@ -26,11 +26,26 @@
         var linker = this;
         var config = mergeObjects(defaults, options);
 
-        this.mapping = mapping;
         this.config = config;
         this.enabled = false;
         this.onNavigate = navigateOnClick('[' + config.itemAttr + ']');
 
+        if (typeof mapping === 'string') {
+            getJson(mapping, function(err, json){
+                if (err) { console.log('error fetching mapping JSON', err); }
+                linker.mapping = json;
+                linker.link();
+            });
+        } else {
+            this.mapping = mapping;
+            this.link();
+        }
+
+    }
+
+    DemoLinker.prototype.link = function() {
+        var linker = this;
+        var config = this.config;
         // enable debug when hash is 'debugHash':
         enableIfHashMatch();
         window.addEventListener('hashchange', enableIfHashMatch, false);
@@ -44,7 +59,7 @@
         [].forEach.call(document.querySelectorAll(config.toggleSelector), function(handle){
             handle.addEventListener('click', function(){ linker.toggle(); }, false);
         });
-    }
+    };
 
     DemoLinker.prototype.enable = function() {
         var linker = this;
@@ -119,6 +134,33 @@
                 return result;
             }, result);
         }, {});
+    }
+
+    /**
+     * Get JSON from URL.
+     *
+     * @param {String} url
+     * @param {Function} callback   - called with (err, json)
+     */
+    function getJson(url, callback) {
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                try {
+                    var json = JSON.parse(request.responseText);
+                    callback(null, json);
+                } catch (err) {
+                    callback(err);
+                }
+            } else {
+                callback(request);
+            }
+        };
+        request.onerror = function() {
+            callback(request);
+        };
+        request.send();
     }
 
 }());
