@@ -71,3 +71,7 @@ Or
 window.demoLinker('path/to/mapping.json', { baseUrl: 'https://getbootstrap.com/' });
 </script>
 ```
+
+## License
+
+[MIT licensed](LICENSE) © [De Voorhoede](https://www.voorhoede.nl/)

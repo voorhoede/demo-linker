@@ -1,23 +1,23 @@
 {
   "name": "demo-linker",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.1.0",
   "description": "Annotate UI components and link them to wherever you want.",
   "scripts": {
     "start": "http-server './' -c-1 -o -p 33665",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint demo-linker.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jbmoelker/demo-linker.git"
+    "url": "git+https://github.com/voorhoede/demo-linker.git"
   },
-  "author": "Jasper Moelker <jasper@voorhoede.nl> (https://voorhoede.nl/)",
+  "author": "De Voorhoede <admin@voorhoede.nl> (https://voorhoede.nl/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jbmoelker/demo-linker/issues"
+    "url": "https://github.com/voorhoede/demo-linker/issues"
   },
-  "homepage": "https://github.com/jbmoelker/demo-linker#readme",
+  "homepage": "https://github.com/voorhoede/demo-linker#readme",
   "devDependencies": {
+    "eslint": "3.3.0",
     "http-server": "0.8.5"
   }
 }
