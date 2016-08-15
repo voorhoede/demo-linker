@@ -1,6 +1,6 @@
 {
   "name": "demo-linker",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Annotate UI components and link them to wherever you want.",
   "scripts": {
     "start": "http-server './' -c-1 -o -p 33665",
