@@ -1,12 +1,12 @@
 [data-demo-linker-item] {
 	cursor: pointer;
-	outline: 1px solid mediumvioletred;
+	outline: 1px solid black;
 }
 
 [data-demo-linker-item]:before {
 	content: attr(data-demo-linker-item);
 	position: absolute;
-	background-color: mediumvioletred;
+	background-color: black;
 	color: white;
 	font-size: 1rem;
 	padding: 2px 5px;
@@ -15,7 +15,7 @@
 
 [data-demo-linker-item]:hover {
 	outline-color: darkturquoise;
-	outline-width: 2px;
+	outline-width: 1px;
 }
 
 [data-demo-linker-item]:hover:before {

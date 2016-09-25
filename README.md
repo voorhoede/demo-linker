@@ -42,7 +42,7 @@ window.demoLinker('path/to/mapping.json');
 </script>
 ```
 
-Additionally you can pass `options`, like a `baseUrl`.
+Additionally you can pass `options`, like a `baseUrl` or `rainbow`
 
 ```html
 <script>
@@ -57,8 +57,11 @@ window.demoLinker(
             url: 'javascript/#collapse'
         }
     },
-    /* options */ {
-        baseUrl: 'https://getbootstrap.com/'
+    /* options */
+    {
+        baseUrl: 'https://getbootstrap.com/',
+    /* add rainbow colored outlines https://gist.github.com/addyosmani/fd3999ea7fce242756b1 */
+        rainbow: true
     }
 );
 </script>
