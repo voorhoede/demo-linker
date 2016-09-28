@@ -3,12 +3,12 @@
   "version": "0.0.0-semantic-releasing",
   "description": "Annotate UI components and link them to wherever you want.",
   "scripts": {
-    "build": "run-s build:*",
-    "build:dist": "mkdirp dist/",
-    "build:examples": "ncp ./examples/ ./dist/examples/",
-    "build:js": "uglifyjs demo-linker.js -o ./dist/examples/demo-linker.js",
-    "build:css": "csso demo-linker.css --output ./dist/examples/demo-linker.css",
-    "start": "npm run build:examples && http-server './dist/examples/' -c-1 -o -p 33665",
+    "build": "rimraf dist/ && mkdirp dist/ && run-s 'copy:*' && ncp examples/ dist/examples/",
+    "copy:js": "ncp demo-linker.js dist/demo-linker.js",
+    "copy:css": "ncp demo-linker.css dist/demo-linker.css",
+    "copy:index": "ncp index.html dist/index.html",
+    "prestart": "npm run build",
+    "start": "http-server 'dist/' -c-1 -o -p 33665",
     "test": "eslint demo-linker.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "commit": "git-cz"
@@ -30,13 +30,12 @@
   "homepage": "https://github.com/voorhoede/demo-linker#readme",
   "devDependencies": {
     "commitizen": "2.8.6",
-    "csso": "2.2.1",
     "eslint": "3.3.0",
     "http-server": "0.8.5",
     "mkdirp": "0.5.1",
     "ncp": "2.0.0",
     "npm-run-all": "3.1.0",
-    "semantic-release": "^4.3.5",
-    "uglify-js": "2.7.3"
+    "rimraf": "2.5.4",
+    "semantic-release": "^4.3.5"
   }
 }
