@@ -1,6 +1,6 @@
 [data-demo-linker-item] {
 	cursor: pointer;
-	outline: 1px solid mediumvioletred;
+	outline: 2px solid mediumvioletred;
 }
 
 [data-demo-linker-item]:before {
@@ -15,7 +15,7 @@
 
 [data-demo-linker-item]:hover {
 	outline-color: darkturquoise;
-	outline-width: 2px;
+	outline-width: 1px;
 }
 
 [data-demo-linker-item]:hover:before {

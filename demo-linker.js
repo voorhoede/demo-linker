@@ -18,7 +18,8 @@
 		baseUrl: '',
 		debugHash: 'debug',
 		itemAttr: 'data-demo-linker-item',
-		toggleSelector: '[data-demo-linker-toggle]'
+		toggleSelector: '[data-demo-linker-toggle]',
+		rainbow: false
 	};
 	var URL_ATTR = 'data-demo-linker-url';
 
@@ -70,6 +71,9 @@
 			[].forEach.call(document.querySelectorAll(selector), function(element){
 				element.setAttribute(linker.config.itemAttr, item.name);
 				element.setAttribute(URL_ATTR, linker.config.baseUrl + item.url);
+				if (linker.config.rainbow) {
+					element.style.outlineColor=randomColor();
+				}
 			});
 		});
 		document.body.addEventListener('click', linker.onNavigate, false);
@@ -85,6 +89,10 @@
 			[].forEach.call(document.querySelectorAll(selector), function(element){
 				element.removeAttribute(linker.config.itemAttr);
 				element.removeAttribute(URL_ATTR);
+				if (linker.config.rainbow) {
+					element.style.outlineColor="none";
+				}
+
 			});
 		});
 		document.body.removeEventListener('click', linker.onNavigate, false);
@@ -98,6 +106,10 @@
 
 	function hashMatches(hash) {
 		return (window.location.hash === '#' + hash);
+	}
+	// based on https://gist.github.com/addyosmani/fd3999ea7fce242756b1
+	function randomColor() {
+		return "#" +(~~(Math.random()*(1<<24))).toString(16);
 	}
 
 	function navigateOnClick(selector) {
