@@ -72,7 +72,7 @@
 				element.setAttribute(linker.config.itemAttr, item.name);
 				element.setAttribute(URL_ATTR, linker.config.baseUrl + item.url);
 				if (linker.config.rainbow) {
-					element.style.outline="1px solid #" +(~~(Math.random()*(1<<24))).toString(16);
+					element.style.outlineColor=randomColor();
 				}
 			});
 		});
@@ -90,7 +90,7 @@
 				element.removeAttribute(linker.config.itemAttr);
 				element.removeAttribute(URL_ATTR);
 				if (linker.config.rainbow) {
-					element.style.outline="none";
+					element.style.outlineColor="none";
 				}
 
 			});
@@ -106,6 +106,10 @@
 
 	function hashMatches(hash) {
 		return (window.location.hash === '#' + hash);
+	}
+	// based on https://gist.github.com/addyosmani/fd3999ea7fce242756b1
+	function randomColor() {
+		return "#" +(~~(Math.random()*(1<<24))).toString(16);
 	}
 
 	function navigateOnClick(selector) {

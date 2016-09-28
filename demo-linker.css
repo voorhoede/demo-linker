@@ -1,12 +1,12 @@
 [data-demo-linker-item] {
 	cursor: pointer;
-	outline: 1px solid black;
+	outline: 2px solid mediumvioletred;
 }
 
 [data-demo-linker-item]:before {
 	content: attr(data-demo-linker-item);
 	position: absolute;
-	background-color: black;
+	background-color: mediumvioletred;
 	color: white;
 	font-size: 1rem;
 	padding: 2px 5px;

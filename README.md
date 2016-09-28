@@ -60,7 +60,7 @@ window.demoLinker(
     /* options */
     {
         baseUrl: 'https://getbootstrap.com/',
-    /* add rainbow colored outlines https://gist.github.com/addyosmani/fd3999ea7fce242756b1 */
+    /* add rainbow colored outlines */
         rainbow: true
     }
 );
