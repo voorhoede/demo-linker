@@ -7,15 +7,19 @@ notifications:
   email: false
 node_js:
 - '6'
-before_install:
-- npm i -g npm@^2.0.0
 before_script:
 - npm prune
+script:
+- npm run build
 after_success:
 - npm run semantic-release
+- bash ./scripts/deploy.sh
 branches:
-  except:
-  - /^v\d+\.\d+\.\d+$/
+  only:
+  - master
+  - /^greenkeeper-.*$/
 env:
   global:
-    secure: yIZEqY5oFAQoBbirWC+T3iP5+id+6gnaQeY5imG/UeesE85JADQrNUOxLsZ/aG9KXyz0Hioh3PbPGcLHtiAvqfIN4I/YK9RR1py2tBkzABkJoFs/mTxLzGh6Cy+4qTYj8rJVd+YHebHqi9aTrg1ungAGQSUtKTmlmiVnYv3Se16F3aCprsnNZ50tcvzTzLqKtwcT0H7nJDBDoM7XXbNbx/KCDDyEsRaDeOcN4QJWE7wG05PRIcKSkFJxd10REtV+1WHO7LLSAVKOGu+5ORa6GRHKAm1iiHTpbsipXXeZCJ4ZhaOaFlmbv65PDHaVUD3iLHKumwex93KcnSENV3fiRajQcFs/5TOMrus3xNlCw+6IDeBmtd03clSOfZEKStgLEGovc3tuHEoveX2tEkMC/5hvyuFiG2VIvTfcjj12X6vTt0a08KD7iP/2N+sjLYB4Y0/yib/fLaG+kVNwUchYsAbx7gRCNvVGTsaCUIf+vrbQUMuM+ZgtfMxathvOeJjcyHVdtcvGz3hNaouKk3REDFlWdr3S5aS8f2oipLAPuk52Ec2AkQLMCmorNgCXssTbFUYtyVnmIoDQYsK39icTyB1CpmsXTrt4nMcOnNbXRSHYQa3wnQwCIKBP3e/HCVmLIbSRgL+boWp2GZktVzg/ATV40kTh8CXBizSQTUuSHrM=
+  - GH_USER: voorhoede
+  - GH_REPO: demo-linker
+  - secure: ta6CQJPDDLPWZsXk3wGUDtd3kpOCw/H4TcQjf0uyKYe6qZTAqoGC+/rwbFDwS8FkUpioY9iRMiNzKJYJYZDI10HyCbGTN3NPXqwrFq8q78j+j6zqw75S0ham+bivbPq6/11ovtAHnu2iCWX5Xqayb0zgx/fE0Xs6m3cDwnEmZHzhI2zkXu2M+dzSKOVY8IYc3wSFB9gz+q1PuL8X9aorpuolJsuOsNWp2NARecn8WKM6bHYcNyl6n5pd0mWs/x32Y65CZ9quHY5nOIOWwRElAXoetT8i+qhY+t+TNzAS6ufG3gvpbcnpvuB0roAvG1no5/P64pzKbxhQWb5GwWldrRnwFgeO8yPdBdPVLBkeife5/noaMXiFV0WovZgpLOvHEaEtdHqnfymya2UHDCH7kWga+07fowo6iqQqdo3JqX7y9TmJaV4Nig3M/5cr+8hz3vTUPdg+r2A8zgCZ5+KdTGpry5TAuMynwSEEgytAXr2y+MUTq4GE5G+Di40gypuNkzzUS4O8fcXYe+Oc584nUxB1Ig/jFV6uY0hhscEA0eKenFAusfcz2l53vTKWsln4EsY2Rk0ZgIqr0vhNVPzv6ng6P8u3ovMOcYog0tYhQ0ieFNqCpngCKQzvjG6hkFjw4o1X8SrRzCDtTK2z87GdhQYHJyIZZxzq1WKcHzgK7xA=
