@@ -3,10 +3,10 @@
   "version": "0.0.0-semantic-releasing",
   "description": "Annotate UI components and link them to wherever you want.",
   "scripts": {
-    "build": "rimraf dist/ && mkdirp dist/ && run-s 'copy:*' && ncp examples/ dist/examples/",
+    "build": "rimraf dist/ && mkdirp dist/ && run-s 'copy:*' && run-s format:index && ncp examples/ dist/examples/",
     "copy:js": "ncp demo-linker.js dist/demo-linker.js",
     "copy:css": "ncp demo-linker.css dist/demo-linker.css",
-    "copy:index": "ncp index.html dist/index.html",
+    "format:index": "formatter README.md --output dist/index.html",
     "prestart": "npm run build",
     "start": "http-server 'dist/' -c-1 -o -p 33665",
     "test": "eslint demo-linker.js",
@@ -36,6 +36,7 @@
     "ncp": "2.0.0",
     "npm-run-all": "3.1.0",
     "rimraf": "2.5.4",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^4.3.5",
+    "voorhoede-ocelot-formatter": "0.3.2"
   }
 }
