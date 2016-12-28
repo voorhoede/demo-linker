@@ -11,7 +11,7 @@ fs.readFile('README.md', 'utf8', (err, readme) => {
 		console.error('Error reading README.md', err);
 		return;
 	}
-	formatter(readme, { github: 'voorhoede/fastatic' })
+	formatter(readme, { github: 'voorhoede/demo-linker' })
 		.then(html => rebaseRelativeUrls(html, masterBranchUrl))
 		.then(html => fs.writeFile(outputFilename, html));
 });
